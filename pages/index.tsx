@@ -15,7 +15,7 @@ const Home = () => {
           <div className='container mx-auto px-4 py-20 md:py-32 relative'>
             <div className='max-w-3xl'>
               <h1 className='text-4xl md:text-5xl font-bold mb-6 leading-tight '>
-                Mapping Nairobi's Green Future
+                Mapping Nairobi&apos;s Green Future
               </h1>
               <p className="text-xl md:text-2xl mb-8 text-gray-100">
               GreenMap empowers communities to monitor, preserve, and expand urban green spaces for a climate-resilient city.
@@ -38,7 +38,7 @@ const Home = () => {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">How GreenMap Works</h2>
           <p className="max-w-2xl mx-auto text-gray-600">
-            Our platform combines satellite data with community insights to monitor and protect Nairobi's valuable green spaces.
+            Our platform combines satellite data with community insights to monitor and protect Nairobi&apos;s valuable green spaces.
           </p>
         </div>
         
@@ -113,7 +113,7 @@ const Home = () => {
               <div className="md:w-1/2 p-8 md:p-12">
                 <h2 className="text-2xl md:text-3xl font-bold mb-4">Join the Green Movement</h2>
                 <p className="text-gray-600 mb-6">
-                  Help us map, monitor and preserve Nairobi's green spaces. Your contributions make a difference in creating a more sustainable and climate-resilient city.
+                  Help us map, monitor and preserve Nairobi&apos;s green spaces. Your contributions make a difference in creating a more sustainable and climate-resilient city.
                 </p>
                 <Link href="/report" className="btn btn-primary">
                   Submit a Report
@@ -130,7 +130,7 @@ const Home = () => {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Our Impact</h2>
           <p className="max-w-2xl mx-auto text-gray-600">
-            Through community engagement and data-driven monitoring, we're making tangible progress in preserving Nairobi's green spaces.
+            Through community engagement and data-driven monitoring, we&apos;re making tangible progress in preserving Nairobi&apos;s green spaces.
           </p>
         </div>
         
