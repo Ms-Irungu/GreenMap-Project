@@ -27,7 +27,7 @@ const ReportForm: React.FC = () => {
             const newImages = Array.from(e.target.files);
             setFormState(prev => ({
                 ...prev,
-                images: [...prev.images, ...newImages],
+                images: [...prev.images, ...newImages], /*Allows users to select and add multiple images, not just replace the previous ones */
             }));
 
             // Create preview URLs
