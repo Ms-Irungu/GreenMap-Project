@@ -16,3 +16,31 @@ export interface DateRangePickerProps {
   dateRange: DateRange;
   onDateRangeChange: (dateRange: DateRange) => void;
 }
+
+
+// Map and GEE Data Types
+export interface MapPosition {
+  lat: number;
+  lng: number;
+  zoom: number;
+}
+
+export interface MapContainerProps {
+  dateRange: DateRange;
+}
+
+export interface LayerVisibility {
+  ndvi: boolean;
+  uhi: boolean;
+  reports: boolean;
+}
+
+export type LayerType = 'ndvi' | 'uhi' | 'reports';
+
+
+export interface LayerControlsProps {
+  layerVisibility: LayerVisibility;
+  onLayerToggle: (layer: keyof LayerVisibility) => void;
+  mapType: 'openStreetMap' | 'satellite';
+  onMapTypeChange: (type: 'openStreetMap' | 'satellite') => void;
+}

@@ -15,3 +15,16 @@
   .btn-secondary {
     @apply bg-emerald-600 text-white hover:bg-emerald-700;
   }
+
+@keyframes slide-text {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+.animate-slide-text {
+  animation: slide-text 15s linear infinite;
+}

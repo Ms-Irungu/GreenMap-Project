@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Header from '@/components/layout/Header'
+import MapContainer from '@/components/map/MapContainer';
 import { DateRange } from '@/interfaces';
 import DateRangePicker from '@/components/common/DateRangePicker';
 import { getDateRangeFromPreset } from '@/components/utils/dateUtils';
@@ -28,6 +29,12 @@ const MapPage = () => {
                 />
             </div>
 
+            <main className='flex-1 bg-white p-4 sm:p-6 lg:p-8'>
+                {/* Map component will go here */}
+                <div className='h-[500px] bg-gray-200 rounded-lg shadow-md flex items-center justify-center'>
+                    <MapContainer dateRange={dateRange} />
+                </div>
+            </main>
 
 
 

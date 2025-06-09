@@ -136,22 +136,22 @@ const Home = () => {
         
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
           <div className="card text-center">
-            <div className="text-3xl md:text-4xl font-bold text-green-600 mb-2">850+</div>
+            <div className="text-3xl md:text-4xl font-bold text-green-600 mb-2">0</div>
             <p className="text-sm md:text-base text-gray-600">Green Spaces Mapped</p>
           </div>
           
           <div className="card text-center">
-            <div className="text-3xl md:text-4xl font-bold text-orange-600 mb-2">1,200+</div>
+            <div className="text-3xl md:text-4xl font-bold text-orange-600 mb-2">0</div>
             <p className="text-sm md:text-base text-gray-600">Community Reports</p>
           </div>
           
           <div className="card text-center">
-            <div className="text-3xl md:text-4xl font-bold text-emerald-600 mb-2">17</div>
+            <div className="text-3xl md:text-4xl font-bold text-emerald-600 mb-2">0</div>
             <p className="text-sm md:text-base text-gray-600">Wards Covered</p>
           </div>
           
           <div className="card text-center">
-            <div className="text-3xl md:text-4xl font-bold text-gray-700 mb-2">12+</div>
+            <div className="text-3xl md:text-4xl font-bold text-gray-700 mb-2">0</div>
             <p className="text-sm md:text-base text-gray-600">Partner Organizations</p>
           </div>
         </div>
