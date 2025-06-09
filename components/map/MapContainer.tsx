@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { MapContainer as LeafletMap, TileLayer, useMap, ZoomControl } from 'react-leaflet';
+import React, { useState } from 'react';
+import { MapContainer as LeafletMap, TileLayer, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { DateRange, MapPosition, MapContainerProps, LayerVisibility } from '@/interfaces';
+import { MapPosition, MapContainerProps, LayerVisibility } from '@/interfaces';
 import { DEFAULT_MAP_POSITION, MAP_TILE_LAYERS } from '@/components/utils/constants';
 import LayerControls from './LayerControls';
 import LocationButton from './LocationButton';
@@ -20,7 +20,7 @@ const DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const MapContainer: React.FC<MapContainerProps> = ({ dateRange }) => {
+const MapContainer: React.FC<MapContainerProps> = () => {
     const [position] = useState<MapPosition>(DEFAULT_MAP_POSITION);
     const [mapType, setMapType] = useState<'openStreetMap' | 'satellite'>('openStreetMap');
     const [layerVisibility, setLayerVisibility] = useState<LayerVisibility>({
