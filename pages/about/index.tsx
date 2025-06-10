@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '@/components/layout/Header';
 import { useState, useEffect } from 'react';
 import { Satellite, Users, TrendingUp } from 'lucide-react';
+import Footer from '@/components/layout/Footer';
 
 
 const AboutPage: React.FC = () => {
@@ -155,9 +156,8 @@ const AboutPage: React.FC = () => {
                         </div>
                     </div>
                 </section>
-
             </main >
-
+            <Footer />
         </div >
 
     )

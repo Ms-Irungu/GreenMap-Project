@@ -3,6 +3,7 @@ import { MapPin, Send, X, Plus } from 'lucide-react';
 import { ReportFormState } from '@/interfaces';
 import Image from 'next/image';
 import Header from '../../components/layout/Header';
+import Footer from '@/components/layout/Footer';
 
 
 const ReportForm: React.FC = () => {
@@ -254,6 +255,7 @@ const ReportForm: React.FC = () => {
                     </form>
                 </div>
             </div>
+            <Footer />
         </div>
 
 

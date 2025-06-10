@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../components/layout/Header'
 import { ArrowRight, Leaf, MapPin, BarChart3, FileEdit, Sun, Users } from 'lucide-react';
 import Link from 'next/link';
+import Footer from '@/components/layout/Footer';
 
 const Home = () => {
   return (
@@ -158,7 +159,7 @@ const Home = () => {
       </section>
 
       </main>
-
+      <Footer />
     </div>
   )
 }

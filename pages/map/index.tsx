@@ -4,6 +4,7 @@ import Header from '@/components/layout/Header'
 import { DateRange } from '@/interfaces';
 import DateRangePicker from '@/components/common/DateRangePicker';
 import { getDateRangeFromPreset } from '@/components/utils/dateUtils';
+import Footer from '@/components/layout/Footer';
 
 // Dynamically import MapContainer with SSR disabled
 const MapContainer = dynamic(() => import('@/components/map/MapContainer'), { ssr: false })
@@ -38,11 +39,8 @@ const MapPage = () => {
                     <MapContainer dateRange={dateRange} />
                 </div>
             </main>
-
-
-
+            <Footer />
         </div>
-
     )
 }
 
