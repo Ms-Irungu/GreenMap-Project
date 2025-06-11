@@ -52,6 +52,12 @@ const ReportForm: React.FC = () => {
         e.preventDefault();
         // In a real application, this would send the data to a server
         console.log('Submitting report:', formState);
+
+         // Get existing reports from localStorage
+    const existing = JSON.parse(localStorage.getItem('reports') || '[]');
+    // Add the new report
+    localStorage.setItem('reports', JSON.stringify([...existing, formState]));
+    
         alert('Thank you for your report! It has been submitted successfully.');
 
         // Reset form

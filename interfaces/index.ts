@@ -7,6 +7,15 @@ export interface ReportFormState {
   images: File[];
 }
 
+export // Define the Report type
+interface Report {
+    type: string;
+    location: string;
+    description: string;
+    latitude: number;
+    longitude: number;
+}
+
 export interface DateRange {
   startDate: Date;
   endDate: Date;

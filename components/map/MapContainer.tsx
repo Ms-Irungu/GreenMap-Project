@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MapContainer as LeafletMap, TileLayer, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MapPosition, MapContainerProps, LayerVisibility } from '@/interfaces';
-import { DEFAULT_MAP_POSITION, MAP_TILE_LAYERS } from '@/components/utils/constants';
+import { DEFAULT_MAP_POSITION, MAP_TILE_LAYERS, EE_TILE_LAYERS } from '@/components/utils/constants';
 import LayerControls from './LayerControls';
 import LocationButton from './LocationButton';
 
@@ -52,10 +52,27 @@ const MapContainer: React.FC<MapContainerProps> = () => {
                     url={MAP_TILE_LAYERS[mapType].url}
                     attribution={MAP_TILE_LAYERS[mapType].attribution}
                 />
-                
+
                 <ZoomControl position="topleft" />
 
-                {/* Data Layers */}
+                {/* Data Layers */} 
+                {/* Earth Engine NDVI Layer */}
+                {layerVisibility.ndvi && (
+                    <TileLayer
+                        url={EE_TILE_LAYERS.ndvi.url}
+                        attribution={EE_TILE_LAYERS.ndvi.attribution}
+                        opacity={0.7}
+                    />
+                )}
+
+                {/* Earth Engine LST (UHI) Layer */}
+                {layerVisibility.uhi && (
+                    <TileLayer
+                        url={EE_TILE_LAYERS.uhi.url}
+                        attribution={EE_TILE_LAYERS.uhi.attribution}
+                        opacity={0.6}
+                    />
+                )}
 
 
                 {/* Controls */}
@@ -74,6 +91,21 @@ const MapContainer: React.FC<MapContainerProps> = () => {
 
 
                 {/* Legend based on active layers */}
+                {layerVisibility.ndvi && (
+                    <div className="absolute bottom-4 left-4 bg-white p-2 rounded shadow z-[1000] text-xs">
+                        <strong>NDVI Legend</strong><br />
+                        <span style={{ color: 'red' }}>■</span> Low <br />
+                        <span style={{ color: 'green' }}>■</span> High
+                    </div>
+                )}
+
+                {layerVisibility.uhi && (
+                    <div className="absolute bottom-20 left-4 bg-white p-2 rounded shadow z-[1000] text-xs">
+                        <strong>LST Legend</strong><br />
+                        <span style={{ color: 'blue' }}>■</span> Cool <br />
+                        <span style={{ color: 'red' }}>■</span> Hot
+                    </div>
+                )}
 
             </LeafletMap>
         </div>
