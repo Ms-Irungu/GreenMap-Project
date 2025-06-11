@@ -16,7 +16,7 @@ const LayerControls: React.FC<LayerControlsProps> = ({
     onMapTypeChange,
 }) => {
     return (
-        <div className="bg-white rounded-lg shadow-md p-3 md:w-[240px] sm:w-[180px] sm:p-2 sm:text-sm xs:[w-150px] xs:p-1 xs:text-xs animate-fade-in">
+        <div className="bg-white rounded-lg shadow-md p-3 md:w-[240px] sm:w-[180px] sm:p-2 sm:text-sm animate-fade-in">
             <div className="flex items-center mb-3">
                 <Layers className="h-5 w-5 text-primary-600 mr-2" />
                 <h3 className="font-medium text-gray-800">Map Layers</h3>
