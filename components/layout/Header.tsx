@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Leaf } from "lucide-react";
-
+import Image from 'next/image';
 
 const Header: React.FC = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -11,7 +10,12 @@ const Header: React.FC = () => {
             <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
                 <div className='flex justify-between items-center h-16'>
                     <div className='flex items-center flex-shrink-0'>
-                        <Leaf className='w-8 h-8 mr-2 text-emerald-400' />
+                        <Image 
+                            src="/assets/images/Logo.png"
+                            alt="GreenMap Logo"
+                            width={80}
+                            height={80}
+                        />
                         <span className='text-lg sm:text-xl lg:text-2xl font-bold'>GreenMap</span>
                     </div>
 

@@ -60,7 +60,7 @@ const LayerControls: React.FC<LayerControlsProps> = ({
                                 <div className="w-3 h-3 rounded-full bg-gradient-to-r from-yellow-400 to-green-700 mr-2"></div>
                                 <span className="text-sm">Vegetation (NDVI)</span>
                             </div>
-                            <div className={`w-8 h-4 rounded-full relative ${layerVisibility.ndvi ? 'bg-primary-500' : 'bg-gray-300'}`}>
+                            <div className={`w-8 h-4 rounded-full relative ${layerVisibility.ndvi ? 'bg-green-500' : 'bg-gray-300'}`}>
                                 <div
                                     className={`absolute w-3 h-3 rounded-full bg-white top-0.5 transition-all ${layerVisibility.ndvi ? 'right-0.5' : 'left-0.5'
                                         }`}
@@ -76,7 +76,7 @@ const LayerControls: React.FC<LayerControlsProps> = ({
                                 <div className="w-3 h-3 rounded-full bg-gradient-to-r from-yellow-300 to-red-700 mr-2"></div>
                                 <span className="text-sm">Urban Heat</span>
                             </div>
-                            <div className={`w-8 h-4 rounded-full relative ${layerVisibility.uhi ? 'bg-primary-500' : 'bg-gray-300'}`}>
+                            <div className={`w-8 h-4 rounded-full relative ${layerVisibility.uhi ? 'bg-green-500' : 'bg-gray-300'}`}>
                                 <div
                                     className={`absolute w-3 h-3 rounded-full bg-white top-0.5 transition-all ${layerVisibility.uhi ? 'right-0.5' : 'left-0.5'
                                         }`}
@@ -92,7 +92,7 @@ const LayerControls: React.FC<LayerControlsProps> = ({
                                 <div className="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
                                 <span className="text-sm">Community Reports</span>
                             </div>
-                            <div className={`w-8 h-4 rounded-full relative ${layerVisibility.reports ? 'bg-primary-500' : 'bg-gray-300'}`}>
+                            <div className={`w-8 h-4 rounded-full relative ${layerVisibility.reports ? 'bg-green-500' : 'bg-gray-300'}`}>
                                 <div
                                     className={`absolute w-3 h-3 rounded-full bg-white top-0.5 transition-all ${layerVisibility.reports ? 'right-0.5' : 'left-0.5'
                                         }`}
