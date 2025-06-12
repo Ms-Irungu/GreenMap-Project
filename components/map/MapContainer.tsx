@@ -94,16 +94,16 @@ const MapContainer: React.FC<MapContainerProps> = () => {
                 {layerVisibility.ndvi && (
                     <div className="absolute bottom-4 left-4 bg-white p-2 rounded shadow z-[1000] text-xs">
                         <strong>NDVI Legend</strong><br />
-                        <span style={{ color: 'red' }}>■</span> Low <br />
-                        <span style={{ color: 'green' }}>■</span> High
+                        <span className="legend-square-red">■</span> Low <br />
+                        <span className="legend-square-green">■</span> High
                     </div>
                 )}
 
                 {layerVisibility.uhi && (
-                    <div className="absolute bottom-20 left-4 bg-white p-2 rounded shadow z-[1000] text-xs">
+                    <div className="absolute bottom-24 left-4 bg-white p-2 rounded shadow z-[1000] text-xs">
                         <strong>LST Legend</strong><br />
-                        <span style={{ color: 'blue' }}>■</span> Cool <br />
-                        <span style={{ color: 'red' }}>■</span> Hot
+                        <span className="legend-square-blue">■</span> Cool <br />
+                        <span className="legend-square-red">■</span> Hot
                     </div>
                 )}
 

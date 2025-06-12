@@ -29,3 +29,12 @@
   animation: slide-text 15s linear infinite;
 }
 
+.legend-square-red {
+  color: red;
+}
+.legend-square-green {
+  color: green;
+}
+.legend-square-blue {
+  color: blue;
+}
