@@ -11,8 +11,8 @@ const Home = () => {
       <main className='animate-fade-in flex-1 bg-gray-100 p-4 sm:p-6 lg:p-8'>
 
         {/* Hero Section */}
-        <section className='relative text-white'>
-          <div className="absolute inset-0 bg-[url('/assets/images/Nairobi.jpeg')] bg-cover bg-center"></div>
+        <section className='relative bg-gradient-to-br from-green-800 to-green-900 text-white'>
+          <div className="absolute inset-0 opacity-20 bg-[url('https://images.pexels.com/photos/957024/forest-trees-perspective-bright-957024.jpeg')] bg-cover bg-center"></div>
           <div className='container mx-auto px-4 py-20 md:py-32 relative'>
             <div className='max-w-3xl'>
               <h1 className='text-4xl md:text-5xl font-bold mb-5 leading-tight '>
