@@ -55,7 +55,7 @@ const MapContainer: React.FC<MapContainerProps> = () => {
 
                 <ZoomControl position="topleft" />
 
-                {/* Data Layers */} 
+                {/* Data Layers */}
                 {/* Earth Engine NDVI Layer */}
                 {layerVisibility.ndvi && (
                     <TileLayer
