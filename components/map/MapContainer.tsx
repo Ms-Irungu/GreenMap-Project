@@ -125,7 +125,7 @@ const MapContainer: React.FC<MapContainerProps> = () => {
                 {/* Legend based on active layers */}
                 {layerVisibility.ndvi && (
                     <div className="
-    absolute left-2 bottom-20
+    absolute left-2 bottom-10
     bg-white p-2 rounded shadow z-[1000] text-xs
     w-[200px] max-w-xs
     sm:left-4 sm:bottom-8 sm:w-[220px] sm:max-w-sm
