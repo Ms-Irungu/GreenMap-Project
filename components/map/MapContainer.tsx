@@ -141,7 +141,7 @@ const MapContainer: React.FC<MapContainerProps> = () => {
 
                 {layerVisibility.uhi && (
                     <div className="
-    absolute left-2 bottom-36
+    absolute left-2 bottom-42
     bg-white p-2 rounded shadow z-[1000] text-xs
     w-[200px] max-w-xs
     sm:left-4 sm:bottom-28 sm:w-[220px] sm:max-w-sm
