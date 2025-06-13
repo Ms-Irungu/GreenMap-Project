@@ -128,8 +128,8 @@ const MapContainer: React.FC<MapContainerProps> = () => {
     absolute left-2 bottom-10
     bg-white p-2 rounded shadow z-[1000] text-xs
     w-[200px] max-w-xs
-    sm:left-4 sm:bottom-8 sm:w-[220px] sm:max-w-sm
-    md:left-4 md:bottom-8 md:w-[240px] md:max-w-xs
+    sm:left-4 sm:bottom-4 sm:w-[220px] sm:max-w-sm
+    md:left-4 md:bottom-4 md:w-[240px] md:max-w-xs
     overflow-x-auto
   ">
                         <strong>NDVI Legend</strong><br />
@@ -144,8 +144,8 @@ const MapContainer: React.FC<MapContainerProps> = () => {
     absolute left-2 bottom-42
     bg-white p-2 rounded shadow z-[1000] text-xs
     w-[200px] max-w-xs
-    sm:left-4 sm:bottom-28 sm:w-[220px] sm:max-w-sm
-    md:left-4 md:bottom-28 md:w-[240px] md:max-w-xs
+    sm:left-4 sm:bottom-26 sm:w-[220px] sm:max-w-sm
+    md:left-4 md:bottom-26 md:w-[240px] md:max-w-xs
     overflow-x-auto
   ">
                         <strong>LST (°C) Legend</strong><br />
