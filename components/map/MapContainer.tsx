@@ -125,7 +125,13 @@ const MapContainer: React.FC<MapContainerProps> = () => {
                 {/* Legend based on active layers */}
                 {layerVisibility.ndvi && (
                     <div className="
-                    absolute md:left-2 md:bottom-8 bg-white p-2 rounded shadow z-[1000] text-xs md:max-w-xs md:w-[240px] sm:left-2 sm:bottom-8 sm:w-[220px] sm:max-w-sm overflow-x-auto">
+    absolute left-2 bottom-20
+    bg-white p-2 rounded shadow z-[1000] text-xs
+    w-[200px] max-w-xs
+    sm:left-4 sm:bottom-8 sm:w-[220px] sm:max-w-sm
+    md:left-4 md:bottom-8 md:w-[240px] md:max-w-xs
+    overflow-x-auto
+  ">
                         <strong>NDVI Legend</strong><br />
                         <span className="legend-square-red">■</span> Low (0.0 – 0.2): Bare/urban land <br />
                         <span className="legend-square-yellow">■</span> Moderate (0.2 – 0.4): Sparse vegetation <br />
@@ -134,14 +140,20 @@ const MapContainer: React.FC<MapContainerProps> = () => {
                 )}
 
                 {layerVisibility.uhi && (
-                    <div className="absolute md:left-2 md:bottom-30 bg-white p-2 rounded shadow z-[1000] text-xs md:max-w-xs md:w-[240px] sm:left-2 sm:bottom-16 sm:w-[220px] sm:max-w-sm overflow-x-auto">
+                    <div className="
+    absolute left-2 bottom-36
+    bg-white p-2 rounded shadow z-[1000] text-xs
+    w-[200px] max-w-xs
+    sm:left-4 sm:bottom-28 sm:w-[220px] sm:max-w-sm
+    md:left-4 md:bottom-28 md:w-[240px] md:max-w-xs
+    overflow-x-auto
+  ">
                         <strong>LST (°C) Legend</strong><br />
                         <span className="legend-square-blue">■</span> Cool (25 – 30°C) <br />
                         <span className="legend-square-yellow">■</span> Warm (30 – 38°C) <br />
                         <span className="legend-square-red">■</span> Hot (38 – 45°C)
                     </div>
                 )}
-
             </LeafletMap>
         </div>
     );
