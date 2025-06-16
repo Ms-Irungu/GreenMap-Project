@@ -53,3 +53,14 @@ export interface LayerControlsProps {
   mapType: 'openStreetMap' | 'satellite';
   onMapTypeChange: (type: 'openStreetMap' | 'satellite') => void;
 }
+
+export interface Ward {
+  id?: string;
+  ward_name: string;
+}
+
+export interface WardSelectorProps {
+ selectedWard : string;
+ onWardChange : (ward: string) => void;
+ wardData: Ward[];
+}
