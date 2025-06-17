@@ -10,13 +10,15 @@ const Header: React.FC = () => {
             <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
                 <div className='flex justify-between items-center h-16'>
                     <div className='flex items-center flex-shrink-0'>
-                        <Image 
-                            src="/assets/images/Logo.png"
-                            alt="GreenMap Logo"
-                            width={80}
-                            height={80}
-                        />
-                        <span className='text-lg sm:text-xl lg:text-2xl font-bold'>GreenMap</span>
+                        <Link href="/" className='flex items-center flex-shrink-0 cursor-pointer'>
+                            <Image
+                                src="/assets/images/Logo.png"
+                                alt="GreenMap Logo"
+                                width={80}
+                                height={80}
+                            />
+                            <span className='text-lg sm:text-xl lg:text-2xl font-bold ml-2'>GreenMap</span>
+                        </Link>
                     </div>
 
                     {/* Mobile Menu Button */}
