@@ -64,3 +64,18 @@ export interface WardSelectorProps {
  onWardChange : (ward: string) => void;
  wardData: Ward[];
 }
+
+export interface WardStatistics {
+  vegetationCoverChange: number; // percentage
+  avgVegetationCover: number;
+  avgUrbanHeatIndex: number;
+  reportCount: {
+    degraded: number;
+    potential: number;
+    encroached: number;
+    total: number;
+  };
+}
+export interface StatisticsPanelProps {
+  statistics: WardStatistics;
+}

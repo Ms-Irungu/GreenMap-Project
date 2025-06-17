@@ -55,7 +55,7 @@ const WardSelector: React.FC<WardSelectorProps> = ({
                 placeholder="Search wards..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-8 pr-2 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
+                className="w-full bg-blue-50 pl-8 pr-2 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
                 onClick={(e) => e.stopPropagation()}
               />
             </div>

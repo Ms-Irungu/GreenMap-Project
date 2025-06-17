@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { MapContainer as LeafletMap, TileLayer, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Layers } from 'lucide-react';
-import { MapPosition, MapContainerProps, LayerVisibility } from '@/interfaces';
+import { MapPosition, LayerVisibility } from '@/interfaces';
 import { DEFAULT_MAP_POSITION, MAP_TILE_LAYERS, EE_TILE_LAYERS } from '@/components/utils/constants';
-import LayerControls from './LayerControls';
-import LocationButton from './LocationButton';
+import LayerControls from '@/components/map/LayerControls';
 
 // Fix for Leaflet marker icons
 import L from 'leaflet';
@@ -21,31 +20,38 @@ const DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const MapContainer: React.FC<MapContainerProps> = () => {
+
+const MiniMap: React.FC = () => {
     const [position] = useState<MapPosition>(DEFAULT_MAP_POSITION);
-    const [mapType, setMapType] = useState<'openStreetMap' | 'satellite'>('openStreetMap');
-    const [layerVisibility, setLayerVisibility] = useState<LayerVisibility>({
-        ndvi: true,
-        uhi: false,
-        reports: true,
-    });
+        const [mapType, setMapType] = useState<'openStreetMap' | 'satellite'>('openStreetMap');
+        const [layerVisibility, setLayerVisibility] = useState<LayerVisibility>({
+            ndvi: true,
+            uhi: false,
+            reports: true,
+        });
+    
+        const [controlsOpen, setControlsOpen] = useState(false);
+    
+        const handleLayerToggle = (layer: keyof LayerVisibility) => {
+            setLayerVisibility(prev => ({
+                ...prev,
+                [layer]: !prev[layer],
+            }));
+        };
+    
+        const handleMapTypeChange = (type: 'openStreetMap' | 'satellite') => {
+            setMapType(type);
+        };
+    return(
+        <div className='bg-white rounded-lg shadow overflow-hidden'>
+            <div className='p-4 border-b'>
+                <h2 className='text-lg font-medium text-gray-800'>
+                    Area Overview
+                </h2>
+            </div>
 
-    const [controlsOpen, setControlsOpen] = useState(false);
-
-    const handleLayerToggle = (layer: keyof LayerVisibility) => {
-        setLayerVisibility(prev => ({
-            ...prev,
-            [layer]: !prev[layer],
-        }));
-    };
-
-    const handleMapTypeChange = (type: 'openStreetMap' | 'satellite') => {
-        setMapType(type);
-    };
-
-    return (
-        <div className="relative h-full w-full">
-            <LeafletMap
+            <div className='h-[400px] w-full'>
+                <LeafletMap
                 center={[position.lat, position.lng]}
                 zoom={position.zoom}
                 zoomControl={false}
@@ -117,10 +123,6 @@ const MapContainer: React.FC<MapContainerProps> = () => {
                     </div>
                 </div>
 
-                <div className="absolute bottom-4 right-4 z-[1000]">
-                    <LocationButton />
-                </div>
-
 
                 {/* Legend based on active layers */}
                 {layerVisibility.ndvi && (
@@ -155,9 +157,9 @@ const MapContainer: React.FC<MapContainerProps> = () => {
                     </div>
                 )}
             </LeafletMap>
+            </div>
         </div>
     );
-
 }
 
-export default MapContainer;
+export default MiniMap;

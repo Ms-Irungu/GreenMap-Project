@@ -41,4 +41,4 @@ export const useWardData = () => {
 
     return { wardData, isLoading, error };
 
-}
+};
