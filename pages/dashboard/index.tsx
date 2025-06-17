@@ -1,10 +1,17 @@
 import React, { useState } from 'react'
+import dynamic from 'next/dynamic';
+// Dynamically import components to avoid SSR issues with Leaflet
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer';
 import { DateRange } from '@/interfaces';
 import DateRangePicker from '@/components/common/DateRangePicker';
 import { getDateRangeFromPreset } from '@/components/utils/dateUtils';
-import DashboardContainer from '@/components/dashboard/DashboardContainer';
+
+// Dynamically import DashboardContainer with SSR disabled
+const DashboardContainer = dynamic(
+  () => import('@/components/dashboard/DashboardContainer'),
+  { ssr: false }
+);
 
 const DashboardPage: React.FC = () => {
   const [dateRange, setDateRange] = useState<DateRange>(
@@ -28,8 +35,7 @@ const DashboardPage: React.FC = () => {
         />
       </div>
       <main className='h-full overflow-y-auto bg-gray-100 flex-1'>
-        <DashboardContainer dateRange={dateRange} />
-
+        <DashboardContainer  />
 
       </main>
       <Footer />

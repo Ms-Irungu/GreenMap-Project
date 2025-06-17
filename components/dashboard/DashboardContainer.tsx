@@ -3,6 +3,7 @@ import WardSelector from '@/components/dashboard/WardSelector';
 import { useWardData } from '@/hooks/useWardData';
 import StatisticsPanel from '@/components/dashboard/StatisticsPanel';
 import MiniMap from '@/components/dashboard/MiniMap';
+import ChartSection from '@/components/dashboard/ChartSection';
 
 
 const DashboardContainer: React.FC = () => {
@@ -58,6 +59,55 @@ const DashboardContainer: React.FC = () => {
     };
   }, [wardData, selectedWard, selectedTimeRange]);
 
+  const charts = useMemo(() => {
+  if (!wardData) {
+    return {
+      ndviTrend: [],
+      uhiTrend: [],
+      reportCounts: []
+    };
+  }
+
+  // Group features by time_range
+  const grouped = wardData.features
+    .filter(f => selectedWard === 'all' || f.properties.ward_name === selectedWard)
+    .reduce((acc, f) => {
+      const key = f.properties.time_range;
+      if (!acc[key]) acc[key] = [];
+      acc[key].push(f);
+      return acc;
+    }, {} as Record<string, typeof wardData.features>);
+
+  // Calculate average NDVI and UHI per time_range
+  const ndviTrend = Object.entries(grouped)
+  .map(([date, features]) => {
+    const valid = features.map(f => f.properties.mean_NDVI).filter(v => typeof v === 'number');
+    const avg = valid.length ? valid.reduce((a, b) => a + b, 0) / valid.length : null;
+    return { date, value: avg };
+  })
+  .filter(d => d.value !== null)
+  .map(d => ({ date: d.date, value: d.value as number }));
+
+const uhiTrend = Object.entries(grouped)
+  .map(([date, features]) => {
+    const valid = features.map(f => f.properties.mean_LST).filter(v => typeof v === 'number');
+    const avg = valid.length ? valid.reduce((a, b) => a + b, 0) / valid.length : null;
+    return { date, value: avg };
+  })
+  .filter(d => d.value !== null)
+  .map(d => ({ date: d.date, value: d.value as number }));
+
+  // (Optional) Average report counts per time_range
+  // const reportCounts = Object.entries(grouped).map(([date, features]) => {
+  //   const valid = features.map(f => f.properties.report_count).filter(v => typeof v === 'number');
+  //   const avg = valid.length ? valid.reduce((a, b) => a + b, 0) / valid.length : 0;
+  //   return { date, value: avg };
+  // });
+
+  return { ndviTrend, uhiTrend }; // Remember to add reportCounts if needed
+}, [wardData, selectedWard]);
+
+
   if (isLoading) {
     return <div className="p-4 max-w-7xl mx-auto">Loading...</div>;
   }
@@ -87,6 +137,14 @@ const DashboardContainer: React.FC = () => {
         <div className='relative z-0 lg:col-span-2'>
           <MiniMap />
         </div>
+      </div>
+      <div className="bg-white rounded-lg shadow mb-6 overflow-hidden">
+        <ChartSection
+          ndviTrend={charts.ndviTrend}
+          uhiTrend={charts.uhiTrend}
+          // reportCounts={charts.reportCounts}
+
+        />
       </div>
     </div>
   );
