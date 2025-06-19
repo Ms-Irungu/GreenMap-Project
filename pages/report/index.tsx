@@ -257,10 +257,11 @@ const ReportForm: React.FC = () => {
                         <div className="mt-8">
                             <button
                                 type="submit"
-                                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-emerald-600 text-white rounded-md font-medium hover:bg-emerald-700 transition-colors"
+                                disabled={loading}
+                                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-emerald-600 text-white rounded-md font-medium hover:bg-emerald-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                             >
                                 <Send className="w-5 h-5" />
-                                <span>Submit Report</span>
+                                <span>{loading ? "Submitting..." : "Submit Report"}</span>
                             </button>
                         </div>
 
