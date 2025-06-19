@@ -6,8 +6,10 @@ import Header from '../../components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
 // Import Firestore Functions and db
-import {collection, addDoc} from 'firebase/firestore';
-import {db} from '@/firebase';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '@/firebase';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "@/firebase";
 
 
 const ReportForm: React.FC = () => {
@@ -56,7 +58,15 @@ const ReportForm: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        try{
+        try {
+            // 1. Upload images to Firebase Storage and get URLs
+            const imageUrls: string[] = [];
+            for (const file of formState.images) {
+                const storageRef = ref(storage, `reports/${Date.now()}-${file.name}`);
+                await uploadBytes(storageRef, file);
+                const url = await getDownloadURL(storageRef);
+                imageUrls.push(url);
+            }
             // Save to Firestore (images will be empty array unless you implement upload)
             await addDoc(collection(db, "reports"), {
                 ...formState,
