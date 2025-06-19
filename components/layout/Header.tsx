@@ -53,6 +53,9 @@ const Header: React.FC = () => {
                             <li className='hover:underline'>
                                 <Link href='/about'>About</Link>
                             </li>
+                            <li className='hover:underline'>
+                                <Link href='/getInvolved'>Get Involved</Link>
+                            </li>
                             <li className="mt-auto w-full flex justify-center">
                                 <button
                                     className='block text-white focus:outline-none focus-visible:outline lg:hidden'

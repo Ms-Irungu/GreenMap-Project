@@ -116,8 +116,8 @@ const Home = () => {
                 <p className="text-gray-600 mb-6">
                   Help us map, monitor and preserve Nairobi&apos;s green spaces. Your contributions make a difference in creating a more sustainable and climate-resilient city.
                 </p>
-                <Link href="/report" className="btn btn-primary">
-                  Submit a Report
+                <Link href="/getInvolved" className="btn btn-primary">
+                  Get Involved
                 </Link>
               </div>
               <div className="md:w-1/2 bg-[url('https://images.pexels.com/photos/1072824/pexels-photo-1072824.jpeg')] bg-cover bg-center min-h-[300px]"></div>

@@ -5,6 +5,10 @@ import Image from 'next/image';
 import Header from '../../components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
+// Import Firestore Functions and db
+import {collection, addDoc} from 'firebase/firestore';
+import {db} from '@/firebase';
+
 
 const ReportForm: React.FC = () => {
     const [formState, setFormState] = useState<ReportFormState>({
@@ -17,6 +21,7 @@ const ReportForm: React.FC = () => {
     });
 
     const [imagePreviewUrls, setImagePreviewUrls] = useState<string[]>([]);
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -48,31 +53,36 @@ const ReportForm: React.FC = () => {
         setImagePreviewUrls(prev => prev.filter((_, i) => i !== index));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // In a real application, this would send the data to a server
-        console.log('Submitting report:', formState);
+        setLoading(true);
+        try{
+            // Save to Firestore (images will be empty array unless you implement upload)
+            await addDoc(collection(db, "reports"), {
+                ...formState,
+                createdAt: new Date().toISOString(),
+            });
 
-         // Get existing reports from localStorage
-    const existing = JSON.parse(localStorage.getItem('reports') || '[]');
-    // Add the new report
-    localStorage.setItem('reports', JSON.stringify([...existing, formState]));
-    
-        alert('Thank you for your report! It has been submitted successfully.');
+            alert("Thank You for your report! It has been submitted successfully.");
 
-        // Reset form
-        setFormState({
-            type: 'degradation',
-            location: '',
-            description: '',
-            latitude: '',
-            longitude: '',
-            images: [],
-        });
+            // Reset form
+            setFormState({
+                type: 'degradation',
+                location: '',
+                description: '',
+                latitude: '',
+                longitude: '',
+                images: [],
+            });
 
-        // Revoke all object URLs
-        imagePreviewUrls.forEach(url => URL.revokeObjectURL(url));
-        setImagePreviewUrls([]);
+            imagePreviewUrls.forEach(url => URL.revokeObjectURL(url));
+            setImagePreviewUrls([]);
+        } catch (error) {
+            alert("Failed to submit report. Please try again.");
+            console.error('Error submitting report:', error);
+        }
+
+        setLoading(false);
     };
 
     const handleGetLocation = () => {
@@ -267,5 +277,6 @@ const ReportForm: React.FC = () => {
 
     );
 };
+
 
 export default ReportForm;
