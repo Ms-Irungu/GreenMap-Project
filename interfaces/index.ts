@@ -1,3 +1,4 @@
+// Report Form Types
 export interface ReportFormState {
   type: 'degradation' | 'potential' | 'existing';
   location: string;
@@ -6,13 +7,14 @@ export interface ReportFormState {
   longitude: string;
 }
 
-export // Define the Report type
-interface Report {
-    type: string;
-    location: string;
-    description: string;
-    latitude: number;
-    longitude: number;
+// getInvolved Form Types
+export interface GetInvolvedFormState {
+  fullName: string;
+  email: string;
+  organization ?: string;
+  role: "student" | "community_leader" | "ngo_initiative" | "sponsor";
+  engagement: "sponsor_feature" | "share_ideas" | "volunteer_efforts" | "collaborate_research";
+  message?: string;
 }
 
 // Map and GEE Data Types
