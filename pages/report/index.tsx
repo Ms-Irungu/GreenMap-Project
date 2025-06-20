@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
-import { MapPin, Send, X, Plus } from 'lucide-react';
+import { MapPin, Send } from 'lucide-react';
 import { ReportFormState } from '@/interfaces';
-import Image from 'next/image';
 import Header from '../../components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
 // Import Firestore Functions and db
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '@/firebase';
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "@/firebase";
-
 
 const ReportForm: React.FC = () => {
     const [formState, setFormState] = useState<ReportFormState>({
@@ -19,10 +15,8 @@ const ReportForm: React.FC = () => {
         description: '',
         latitude: '',
         longitude: '',
-        images: [],
     });
 
-    const [imagePreviewUrls, setImagePreviewUrls] = useState<string[]>([]);
     const [loading, setLoading] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -30,45 +24,18 @@ const ReportForm: React.FC = () => {
         setFormState(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length > 0) {
-            const newImages = Array.from(e.target.files);
-            setFormState(prev => ({
-                ...prev,
-                images: [...prev.images, ...newImages], /*Allows users to select and add multiple images, not just replace the previous ones */
-            }));
-
-            // Create preview URLs
-            const newPreviewUrls = newImages.map(file => URL.createObjectURL(file));
-            setImagePreviewUrls(prev => [...prev, ...newPreviewUrls]);
-        }
-    };
-
-    const removeImage = (index: number) => {
-        setFormState(prev => ({
-            ...prev,
-            images: prev.images.filter((_, i) => i !== index),
-        }));
-
-        // Revoke the object URL to avoid memory leaks
-        URL.revokeObjectURL(imagePreviewUrls[index]);
-        setImagePreviewUrls(prev => prev.filter((_, i) => i !== index));
-    };
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
+
+        console.log("Submitting to Firestore:", {
+            ...formState,
+            createdAt: new Date().toISOString(),
+        });
+
         try {
-            // 1. Upload images to Firebase Storage and get URLs
-            const imageUrls: string[] = [];
-            for (const file of formState.images) {
-                const storageRef = ref(storage, `reports/${Date.now()}-${file.name}`);
-                await uploadBytes(storageRef, file);
-                const url = await getDownloadURL(storageRef);
-                imageUrls.push(url);
-            }
-            // Save to Firestore (images will be empty array unless you implement upload)
-            await addDoc(collection(db, "reports"), {
+            // Save to Firestore 
+            await addDoc(collection(db, `reports`), {
                 ...formState,
                 createdAt: new Date().toISOString(),
             });
@@ -79,14 +46,10 @@ const ReportForm: React.FC = () => {
             setFormState({
                 type: 'degradation',
                 location: '',
-                description: '',
+                description: ``,
                 latitude: '',
                 longitude: '',
-                images: [],
             });
-
-            imagePreviewUrls.forEach(url => URL.revokeObjectURL(url));
-            setImagePreviewUrls([]);
         } catch (error) {
             alert("Failed to submit report. Please try again.");
             console.error('Error submitting report:', error);
@@ -219,49 +182,6 @@ const ReportForm: React.FC = () => {
                                 </button>
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Upload Images
-                                </label>
-
-                                <div className="flex flex-wrap gap-4 mb-4">
-                                    {imagePreviewUrls.map((url, index) => (
-                                        <div key={index} className="relative w-24 h-24">
-                                            <Image
-                                                src={url}
-                                                alt={`Preview ${index + 1}`}
-                                                fill
-                                                sizes="(max-width: 96px) 100vw, 96px"
-                                                className="w-full h-full object-cover rounded"
-                                            />
-                                            <button
-                                                type="button"
-                                                onClick={() => removeImage(index)}
-                                                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"
-                                                title={`Remove image ${index + 1}`}
-                                            >
-                                                <X className="w-4 h-4" />
-                                            </button>
-                                        </div>
-                                    ))}
-
-                                    <label className="w-24 h-24 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded cursor-pointer hover:bg-gray-50">
-                                        <Plus className="w-8 h-8 text-gray-400" />
-                                        <span className="text-xs text-gray-500 mt-1">Add Photo</span>
-                                        <input
-                                            type="file"
-                                            accept="image/*"
-                                            onChange={handleImageChange}
-                                            className="hidden"
-                                            multiple
-                                        />
-                                    </label>
-                                </div>
-
-                                <p className="text-xs text-gray-500">
-                                    Upload images to help us better understand the space (optional). You can upload multiple images.
-                                </p>
-                            </div>
                         </div>
 
                         <div className="mt-8">

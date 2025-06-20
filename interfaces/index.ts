@@ -4,7 +4,6 @@ export interface ReportFormState {
   description: string;
   latitude: string;
   longitude: string;
-  images: File[];
 }
 
 export // Define the Report type
