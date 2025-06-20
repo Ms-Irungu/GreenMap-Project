@@ -1,53 +1,50 @@
-import { DateRangePickerProps } from "@/interfaces";
+// DateRangePicker.tsx (or your existing file)
 import React, { useState } from "react";
-import { Calendar, ChevronDown } from "lucide-react";
-import {getDateRangeFromPreset, formatDateRange} from "@/components/utils/dateUtils";
-import { DATE_RANGE_PRESETS } from "@/components/utils/constants";
+import { months } from "@/components/utils/constants"; // Adjust the import path as necessary
+import { MonthYearPickerProps } from "@/interfaces"; // Adjust the import path as necessary
 
-const DateRangePicker: React.FC<DateRangePickerProps> = ({ 
-  dateRange, 
-  onDateRangeChange 
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedPreset, setSelectedPreset] = useState('last30Days');
+const currentYear = new Date().getFullYear();
+const years = Array.from({ length: 10 }, (_, i) => currentYear - i); // Last 10 years
 
-  const handlePresetChange = (preset: string) => {
-    const newDateRange = getDateRangeFromPreset(preset);
-    setSelectedPreset(preset);
-    onDateRangeChange(newDateRange);
-    setIsOpen(false);
+
+const DateRangePicker: React.FC<MonthYearPickerProps> = ({ value, onChange }) => {
+  const [selectedMonth, setSelectedMonth] = useState(value?.month ?? new Date().getMonth());
+  const [selectedYear, setSelectedYear] = useState(value?.year ?? currentYear);
+
+  const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const month = parseInt(e.target.value, 10);
+    setSelectedMonth(month);
+    onChange?.({ month, year: selectedYear });
+  };
+
+  const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const year = parseInt(e.target.value, 10);
+    setSelectedYear(year);
+    onChange?.({ month: selectedMonth, year });
   };
 
   return (
-    <div className="relative">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-2 bg-white border border-gray-300 rounded-md px-2 py-1 text-xs sm:px-3 sm:py-2 sm:text-sm md:px-4 md:py-2 md:text-base text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+    <div className="flex gap-2">
+      <select
+        value={selectedMonth}
+        onChange={handleMonthChange}
+        className="border rounded px-2 py-1"
+        aria-label="Select month"
       >
-        <Calendar className="h-4 w-4 text-gray-500" />
-        <span>{formatDateRange(dateRange)}</span>
-        <ChevronDown className="h-4 w-4 text-gray-500" />
-      </button>
-
-      {isOpen && (
-        <div className="absolute z-10 mt-2 w-56 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1">
-            {DATE_RANGE_PRESETS.map((preset) => (
-              <button
-                key={preset.value}
-                onClick={() => handlePresetChange(preset.value)}
-                className={`block w-full text-left px-4 py-2 text-sm ${
-                  selectedPreset === preset.value
-                    ? 'bg-primary-100 text-primary-800'
-                    : 'text-gray-700 hover:bg-gray-100'
-                }`}
-              >
-                {preset.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+        {months.map((month, idx) => (
+          <option value={idx} key={month}>{month}</option>
+        ))}
+      </select>
+      <select
+        value={selectedYear}
+        onChange={handleYearChange}
+        className="border rounded px-2 py-1"
+        aria-label="Select year"
+      >
+        {years.map(year => (
+          <option value={year} key={year}>{year}</option>
+        ))}
+      </select>
     </div>
   );
 };

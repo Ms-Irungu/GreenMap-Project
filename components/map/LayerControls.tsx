@@ -84,21 +84,7 @@ const LayerControls: React.FC<LayerControlsProps> = ({
                             </div>
                         </div>
 
-                        <div
-                            className="flex items-center justify-between cursor-pointer p-2 rounded hover:bg-gray-100"
-                            onClick={() => onLayerToggle('reports')}
-                        >
-                            <div className="flex items-center">
-                                <div className="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
-                                <span className="text-sm">Community Reports</span>
-                            </div>
-                            <div className={`w-8 h-4 rounded-full relative ${layerVisibility.reports ? 'bg-green-500' : 'bg-gray-300'}`}>
-                                <div
-                                    className={`absolute w-3 h-3 rounded-full bg-white top-0.5 transition-all ${layerVisibility.reports ? 'right-0.5' : 'left-0.5'
-                                        }`}
-                                ></div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

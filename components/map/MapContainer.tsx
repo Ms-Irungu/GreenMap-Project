@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MapContainer as LeafletMap, TileLayer, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Layers } from 'lucide-react';
-import { MapPosition, MapContainerProps, LayerVisibility } from '@/interfaces';
+import { MapPosition, LayerVisibility } from '@/interfaces';
 import { DEFAULT_MAP_POSITION, MAP_TILE_LAYERS, EE_TILE_LAYERS } from '@/components/utils/constants';
 import LayerControls from './LayerControls';
 import LocationButton from './LocationButton';
@@ -21,7 +21,7 @@ const DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const MapContainer: React.FC<MapContainerProps> = () => {
+const MapContainer: React.FC = () => {
     const [position] = useState<MapPosition>(DEFAULT_MAP_POSITION);
     const [mapType, setMapType] = useState<'openStreetMap' | 'satellite'>('openStreetMap');
     const [layerVisibility, setLayerVisibility] = useState<LayerVisibility>({

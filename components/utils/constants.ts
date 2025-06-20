@@ -8,14 +8,6 @@ export const DEFAULT_MAP_POSITION: MapPosition = {
   zoom: 12,
 };
 
-export const DATE_RANGE_PRESETS = [
-  { label: 'Last 30 Days', value: 'last30Days' },
-  { label: 'Last 3 Months', value: 'last3Months' },
-  { label: 'Last 6 Months', value: 'last6Months' },
-  { label: 'Year to Date', value: 'yearToDate' },
-  { label: 'Last Year', value: 'lastYear' },
-  { label: 'Custom Range', value: 'custom' },
-];
 
 // Map tile layers
 export const MAP_TILE_LAYERS = {
@@ -40,4 +32,7 @@ export const EE_TILE_LAYERS = {
   }
 };
 
-
+export const months = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];

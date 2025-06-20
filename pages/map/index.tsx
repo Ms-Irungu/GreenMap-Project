@@ -1,22 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import dynamic from 'next/dynamic'
 import Header from '@/components/layout/Header'
-import { DateRange } from '@/interfaces';
-import DateRangePicker from '@/components/common/DateRangePicker';
-import { getDateRangeFromPreset } from '@/components/utils/dateUtils';
 import Footer from '@/components/layout/Footer';
+import DateRangePicker from '@/components/common/DateRangePicker';
 
 // Dynamically import MapContainer with SSR disabled
 const MapContainer = dynamic(() => import('@/components/map/MapContainer'), { ssr: false })
 
 const MapPage = () => {
-    const [dateRange, setDateRange] = useState<DateRange>(
-        getDateRangeFromPreset('last30Days')
-    );
-
-    const handleDateRangeChange = (newDateRange: DateRange) => {
-        setDateRange(newDateRange);
-    };
+   
 
 
     return (
@@ -28,15 +20,14 @@ const MapPage = () => {
                 </h1>
 
                 <DateRangePicker
-                    dateRange={dateRange}
-                    onDateRangeChange={handleDateRangeChange}
+                   
                 />
             </div>
 
             <main className='flex-1 animate-fade-in bg-white p-4 sm:p-6 lg:p-8'>
                 {/* Map component will go here */}
                 <div className='h-[500px] bg-gray-200 shadow-md flex items-center justify-center relative z-0'>
-                    <MapContainer dateRange={dateRange} />
+                    <MapContainer  />
                 </div>
             </main>
             <Footer />

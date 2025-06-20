@@ -15,26 +15,11 @@ interface Report {
     longitude: number;
 }
 
-export interface DateRange {
-  startDate: Date;
-  endDate: Date;
-}
-
-export interface DateRangePickerProps {
-  dateRange: DateRange;
-  onDateRangeChange: (dateRange: DateRange) => void;
-}
-
-
 // Map and GEE Data Types
 export interface MapPosition {
   lat: number;
   lng: number;
   zoom: number;
-}
-
-export interface MapContainerProps {
-  dateRange: DateRange;
 }
 
 export interface LayerVisibility {
@@ -77,4 +62,9 @@ export interface WardStatistics {
 }
 export interface StatisticsPanelProps {
   statistics: WardStatistics;
+}
+
+export interface MonthYearPickerProps {
+  value?: { month: number; year: number };
+  onChange?: (value: { month: number; year: number }) => void;
 }
