@@ -18,7 +18,7 @@ const useMapOverlay = () => {
         setIsLoading(true);
         setError(null);
         try {
-            const res = await axios.post(`http://139.84.241.215/api/ndvi/`, {
+            const res = await axios.post(`https://139.84.241.215/api/ndvi/`, {
                 year,
                 month: months[monthIndex],
             });
