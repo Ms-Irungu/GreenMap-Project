@@ -27,7 +27,6 @@ const MiniMap: React.FC = () => {
         const [layerVisibility, setLayerVisibility] = useState<LayerVisibility>({
             ndvi: true,
             uhi: false,
-            reports: true,
         });
     
         const [controlsOpen, setControlsOpen] = useState(false);
