@@ -27,7 +27,6 @@ export interface MapPosition {
 export interface LayerVisibility {
   ndvi: boolean;
   uhi: boolean;
-  reports: boolean;
 }
 
 export type LayerType = 'ndvi' | 'uhi' | 'reports';
@@ -66,7 +65,12 @@ export interface StatisticsPanelProps {
   statistics: WardStatistics;
 }
 
-export interface MonthYearPickerProps {
-  value?: { month: number; year: number };
-  onChange?: (value: { month: number; year: number }) => void;
+export interface MonthYear {
+  month: number;
+  year: number;
+}
+
+export interface DateRangePickerProps {
+  value?: MonthYear;
+  onChange?: (value: MonthYear) => void;
 }

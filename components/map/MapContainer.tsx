@@ -3,9 +3,10 @@ import { MapContainer as LeafletMap, TileLayer, ZoomControl } from 'react-leafle
 import 'leaflet/dist/leaflet.css';
 import { Layers } from 'lucide-react';
 import { MapPosition, LayerVisibility } from '@/interfaces';
-import { DEFAULT_MAP_POSITION, MAP_TILE_LAYERS, EE_TILE_LAYERS } from '@/components/utils/constants';
+import { DEFAULT_MAP_POSITION, MAP_TILE_LAYERS } from '@/components/utils/constants';
 import LayerControls from './LayerControls';
 import LocationButton from './LocationButton';
+import { OverlayResult } from '@/hooks/useMapOverlay';
 
 // Fix for Leaflet marker icons
 import L from 'leaflet';
@@ -21,16 +22,32 @@ const DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const MapContainer: React.FC = () => {
+interface MapContainerProps {
+    ndvi: OverlayResult;
+    lst: OverlayResult;
+    isLoading: boolean;
+}
+
+const MapContainer: React.FC<MapContainerProps> = ({ ndvi, lst, isLoading }) => {
     const [position] = useState<MapPosition>(DEFAULT_MAP_POSITION);
     const [mapType, setMapType] = useState<'openStreetMap' | 'satellite'>('openStreetMap');
     const [layerVisibility, setLayerVisibility] = useState<LayerVisibility>({
         ndvi: true,
         uhi: false,
-        reports: true,
     });
 
     const [controlsOpen, setControlsOpen] = useState(false);
+
+    // Debug logs
+    console.log("NDVI mapId:", ndvi.mapId);
+    console.log("LST mapId:", lst.mapId);
+    if (ndvi.mapId) {
+        console.log("NDVI Tile URL:", `https://earthengine.googleapis.com/v1alpha/${ndvi.mapId}/tiles/{z}/{x}/{y}`);
+    }
+    if (lst.mapId) {
+        console.log("LST Tile URL:", `https://earthengine.googleapis.com/v1alpha/${lst.mapId}/tiles/{z}/{x}/{y}`);
+    }
+    console.log("Layer Visibility:", layerVisibility);
 
     const handleLayerToggle = (layer: keyof LayerVisibility) => {
         setLayerVisibility(prev => ({
@@ -59,20 +76,21 @@ const MapContainer: React.FC = () => {
                 <ZoomControl position="topleft" />
 
                 {/* Data Layers */}
-                {/* Earth Engine NDVI Layer */}
-                {layerVisibility.ndvi && (
+
+                {/* Dynamic NDVI Layer */}
+                {layerVisibility.ndvi && ndvi.mapId && (
                     <TileLayer
-                        url={EE_TILE_LAYERS.ndvi.url}
-                        attribution={EE_TILE_LAYERS.ndvi.attribution}
+                        url={`https://earthengine.googleapis.com/v1alpha/${ndvi.mapId}/tiles/{z}/{x}/{y}`}
+                        attribution="NDVI Overlay"
                         opacity={0.6}
                     />
                 )}
 
-                {/* Earth Engine LST (UHI) Layer */}
-                {layerVisibility.uhi && (
+                {/* Dynamic LST (UHI) Layer */}
+                {layerVisibility.uhi && lst.mapId && (
                     <TileLayer
-                        url={EE_TILE_LAYERS.uhi.url}
-                        attribution={EE_TILE_LAYERS.uhi.attribution}
+                        url={`https://earthengine.googleapis.com/v1alpha/${lst.mapId}/tiles/{z}/{x}/{y}`}
+                        attribution="LST Overlay"
                         opacity={0.6}
                     />
                 )}
@@ -155,6 +173,11 @@ const MapContainer: React.FC = () => {
                     </div>
                 )}
             </LeafletMap>
+            {isLoading && (
+                <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-60 z-[2000]">
+                    <span className="text-emerald-700 font-semibold">Loading overlays...</span>
+                </div>
+            )}
         </div>
     );
 
