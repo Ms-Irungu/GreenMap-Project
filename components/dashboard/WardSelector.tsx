@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Search, ChevronDown } from 'lucide-react';
-import { Ward } from '@/interfaces';
 import { WardSelectorProps } from '@/interfaces';
 
 const WardSelector: React.FC<WardSelectorProps> = ({
@@ -11,12 +10,16 @@ const WardSelector: React.FC<WardSelectorProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Extract unique ward names from data
-  const uniqueWards: string[] = wardData
-    ? Array.from(new Set(wardData.map((f: Ward) => f.ward_name)))
-    : [];
+ // Extract unique, non-empty ward names
+  const uniqueWards: string[] = Array.from(
+    new Set(
+      (wardData ?? [])
+        .map((f) => f.NAME_3)
+        .filter((name): name is string => typeof name === 'string' && name.trim() !== '')
+    )
+  ).sort();
 
-  // Filter based on search input
+// Filter based on search input
   const filteredWards = uniqueWards.filter((name) =>
     name.toLowerCase().includes(searchTerm.toLowerCase())
   );

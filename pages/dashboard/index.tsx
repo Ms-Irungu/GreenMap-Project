@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import dynamic from 'next/dynamic';
 // Dynamically import components to avoid SSR issues with Leaflet
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer';
 import DateRangePicker from '@/components/common/DateRangePicker';
+
 
 // Dynamically import DashboardContainer with SSR disabled
 const DashboardContainer = dynamic(
@@ -12,6 +13,11 @@ const DashboardContainer = dynamic(
 );
 
 const DashboardPage: React.FC = () => {
+  // Manage date state here
+  const [selectedDate, setSelectedDate] = useState({
+    month: new Date().getMonth(),
+    year: new Date().getFullYear(),
+  });
 
   return (
     <div className='flex flex-col min-h-screen'>
@@ -22,11 +28,12 @@ const DashboardPage: React.FC = () => {
         </h1>
 
         <DateRangePicker
-         
+          value={selectedDate}
+          onChange={setSelectedDate}
         />
       </div>
       <main className='h-full overflow-y-auto bg-gray-100 flex-1'>
-        <DashboardContainer  />
+        <DashboardContainer selectedDate={selectedDate} />
 
       </main>
       <Footer />

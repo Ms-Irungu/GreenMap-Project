@@ -40,8 +40,7 @@ export interface LayerControlsProps {
 }
 
 export interface Ward {
-  id?: string;
-  ward_name: string;
+  NAME_3: string; // Ward name
 }
 
 export interface WardSelectorProps {
@@ -50,19 +49,11 @@ export interface WardSelectorProps {
  wardData: Ward[];
 }
 
-export interface WardStatistics {
-  vegetationCoverChange: number; // percentage
-  avgVegetationCover: number;
-  avgUrbanHeatIndex: number;
-  reportCount: {
-    degraded: number;
-    potential: number;
-    encroached: number;
-    total: number;
-  };
-}
 export interface StatisticsPanelProps {
-  statistics: WardStatistics;
+  ward: string;
+  meanNdvi: number | string;
+  meanLst: number | string;
+  isLoading: boolean;
 }
 
 export interface MonthYear {
@@ -73,4 +64,15 @@ export interface MonthYear {
 export interface DateRangePickerProps {
   value?: MonthYear;
   onChange?: (value: MonthYear) => void;
+}
+
+export interface DashboardContainerProps {
+  selectedDate: MonthYear;
+}
+
+export interface ChartSectionProps {
+  data: { ward: string; ndvi: number; lst: number }[];
+  selectedYear: number;
+  selectedMonth: number;
+  isLoading: boolean;
 }

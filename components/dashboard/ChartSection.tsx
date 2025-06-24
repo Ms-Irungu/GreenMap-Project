@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
+import { ChartSectionProps } from '@/interfaces';
 import {
-  LineChart,
-  Line,
   BarChart,
   Bar,
   XAxis,
@@ -12,55 +11,48 @@ import {
   ResponsiveContainer
 } from 'recharts';
 
-type ChartType = 'ndvi' | 'uhi' | 'reports';
+type ChartType = 'ndvi' | 'lst';
 
-interface ChartSectionProps {
-  ndviTrend: { date: string; value: number }[];
-  uhiTrend: { date: string; value: number }[];
-  reportCounts?: { date: string; value: number }[];
-}
-
-const ChartSection: React.FC<ChartSectionProps> = ({ ndviTrend, uhiTrend, reportCounts }) => {
+const ChartSection: React.FC<ChartSectionProps> = ({
+  data,
+  selectedYear,
+  selectedMonth,
+  isLoading,
+}) => {
   const [activeChart, setActiveChart] = useState<ChartType>('ndvi');
 
   const renderChartContent = () => {
+    if (isLoading) {
+      return <div>Loading chart...</div>;
+    }
+    if (!data || data.length === 0) {
+      return <div>No data available for this period.</div>;
+    }
+
     switch (activeChart) {
       case 'ndvi':
         return (
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={ndviTrend}>
+          <ResponsiveContainer width="100%" height={350}>
+            <BarChart data={data}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis dataKey="date" />
-              <YAxis domain={[0, 1]} />
+              <XAxis dataKey="ward" angle={-45} textAnchor="end" interval={3} height={80} />
+              <YAxis domain={[0, 1]} label={{ value: 'NDVI', angle: -90, position: 'insideLeft' }} />
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey="value" name="NDVI" stroke="#10b981" strokeWidth={2} />
-            </LineChart>
+              <Bar dataKey="ndvi" name="NDVI" fill="#10b981" />
+            </BarChart>
           </ResponsiveContainer>
         );
-      case 'uhi':
+        case 'lst':
         return (
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={uhiTrend}>
+          <ResponsiveContainer width="100%" height={350}>
+            <BarChart data={data}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis dataKey="date" />
-              <YAxis />
+              <XAxis dataKey="ward" angle={-45} textAnchor="end" interval={0} height={80} />
+              <YAxis label={{ value: 'LST (°C)', angle: -90, position: 'insideLeft' }} />
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey="value" name="Urban Heat Index" stroke="#f59e42" strokeWidth={2} />
-            </LineChart>
-          </ResponsiveContainer>
-        );
-      case 'reports':
-        return (
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={reportCounts}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis dataKey="date" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="value" name="Reports" fill="#3b82f6" />
+              <Bar dataKey="lst" name="LST (°C)" fill="#f59e42" />
             </BarChart>
           </ResponsiveContainer>
         );
@@ -73,37 +65,30 @@ const ChartSection: React.FC<ChartSectionProps> = ({ ndviTrend, uhiTrend, report
     <div>
       <div className="p-4 border-b border-gray-200">
         <h2 className="text-lg font-medium text-gray-800">Environmental Trends</h2>
+        <h2 className="text-lg font-medium text-gray-800">
+          {activeChart === 'ndvi'
+            ? `NDVI for All Wards (${new Date(0, selectedMonth).toLocaleString('default', { month: 'long' })} ${selectedYear})`
+            : `LST for All Wards (${new Date(0, selectedMonth).toLocaleString('default', { month: 'long' })} ${selectedYear})`}
+        </h2>
 
         <div className="flex mt-2 space-x-2">
           <button
             onClick={() => setActiveChart('ndvi')}
-            className={`px-3 py-1.5 text-sm font-medium rounded-md ${
-              activeChart === 'ndvi'
+            className={`px-3 py-1.5 text-sm font-medium rounded-md ${activeChart === 'ndvi'
                 ? 'bg-green-100 text-green-800'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
+              }`}
           >
             Vegetation Trend
           </button>
           <button
-            onClick={() => setActiveChart('uhi')}
-            className={`px-3 py-1.5 text-sm font-medium rounded-md ${
-              activeChart === 'uhi'
+            onClick={() => setActiveChart('lst')}
+            className={`px-3 py-1.5 text-sm font-medium rounded-md ${activeChart === 'lst'
                 ? 'bg-orange-100 text-orange-800'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
+              }`}
           >
             Urban Heat Trend
-          </button>
-          <button
-            onClick={() => setActiveChart('reports')}
-            className={`px-3 py-1.5 text-sm font-medium rounded-md ${
-              activeChart === 'reports'
-                ? 'bg-blue-100 text-blue-800'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            Community Reports
           </button>
         </div>
       </div>
