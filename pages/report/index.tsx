@@ -10,11 +10,14 @@ import { db } from '@/firebase';
 
 const ReportForm: React.FC = () => {
     const [formState, setFormState] = useState<ReportFormState>({
-        type: 'degradation',
+        type: 'illegal_tree_cutting',
         location: '',
         description: '',
         latitude: '',
         longitude: '',
+        spaceType: '',
+        condition: '',
+        urgency: 'low',
     });
 
     const [loading, setLoading] = useState(false);
@@ -44,11 +47,14 @@ const ReportForm: React.FC = () => {
 
             // Reset form
             setFormState({
-                type: 'degradation',
+                type: 'illegal_tree_cutting',
                 location: '',
                 description: ``,
                 latitude: '',
                 longitude: '',
+                spaceType: '',
+                condition: '',
+                urgency: 'low',
             });
         } catch (error) {
             alert("Failed to submit report. Please try again.");
@@ -92,6 +98,8 @@ const ReportForm: React.FC = () => {
 
                     <form onSubmit={handleSubmit} className="p-6">
                         <div className="space-y-6">
+
+                            {/* Report Type */}
                             <div>
                                 <label htmlFor='report-type' className="block text-sm font-medium text-gray-700 mb-1">
                                     Report Type
@@ -103,12 +111,15 @@ const ReportForm: React.FC = () => {
                                     onChange={handleChange}
                                     className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                                 >
-                                    <option value="degradation">Degraded Green Space</option>
+                                    <option value="illegal_tree_cutting">Illegal Tree Cutting</option>
+                                    <option value="encroachment">Encroachment / Construction</option>
+                                    <option value="pollution">Pollution / Dumping</option>
                                     <option value="potential">Potential Green Space</option>
                                     <option value="existing">Existing Green Space</option>
                                 </select>
                             </div>
 
+                            {/* Location Name */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
                                     Location Name
@@ -123,7 +134,95 @@ const ReportForm: React.FC = () => {
                                     required
                                 />
                             </div>
+                            {/* Green Space Type */}
 
+                            <div>
+                                <label htmlFor='green-space-type' className="block text-sm font-medium text-gray-700 mb-1">
+                                    Green Space Type
+                                </label>
+                                <select
+                                    id="green-space-type"
+                                    name="spaceType"
+                                    value={formState.spaceType}
+                                    onChange={handleChange}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                                >
+                                    <option value="">Select green space type</option>
+                                    <option value="Public Park">Public Park</option>
+                                    <option value="Urban Forest">Urban Forest</option>
+                                    <option value="Idle Plot">Idle Plot</option>
+                                    <option value="Roadside Tree Belt">Roadside Tree Belt</option>
+                                    <option value="School Playground">School Playground</option>
+                                    <option value="Riverside / Wetland">Riverside / Wetland</option>
+                                    <option value="Rooftop / Vertical Garden">Rooftop / Vertical Garden</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                            {/* Show condition only for degradation reports */}
+                            {['illegal_tree_cutting', 'encroachment', 'pollution'].includes(formState.type) && (
+                                <div>
+                                    <label htmlFor='conditions' className="block text-sm font-medium text-gray-700 mb-1">
+                                        Condition
+                                    </label>
+                                    <select
+                                        id="conditions"
+                                        name="condition"
+                                        value={formState.condition}
+                                        onChange={handleChange}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                                    >
+                                        <option value="">Select condition</option>
+                                        <option value="Overgrown/Unmaintained">Overgrown / Unmaintained</option>
+                                        <option value="Polluted / Littered">Polluted / Littered</option>
+                                        <option value="Encroached / Constructed">Encroached / Constructed</option>
+                                        <option value="Tree Cutting / Logging">Tree Cutting / Logging</option>
+                                        <option value="Fire / Vandalism">Fire / Vandalism</option>
+                                        <option value="Drought / Drying Vegetation">Drought / Drying Vegetation</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            )}
+
+                            {/* Urgency Level */}
+                            <div>
+                                <label className="block text-lg font-medium text-gray-700 mb-1">
+                                    Urgency / Severity
+                                </label>
+                                <div className="flex gap-40 mt-2">
+                                    {[
+                                        { value: 'low', label: 'Low', color: 'bg-green-400' },
+                                        { value: 'moderate', label: 'Moderate', color: 'bg-yellow-400' },
+                                        { value: 'high', label: 'High', color: 'bg-orange-400' },
+                                        { value: 'critical', label: 'Critical', color: 'bg-red-500' },
+                                    ].map(opt => (
+                                        <label key={opt.value} className="flex flex-col items-center cursor-pointer">
+                                            <input
+                                                type="radio"
+                                                name="urgency"
+                                                value={opt.value}
+                                                checked={formState.urgency === opt.value}
+                                                onChange={handleChange}
+                                                className="sr-only"
+                                            />
+                                            <span
+                                                className={`
+            w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center
+            ${formState.urgency === opt.value ? opt.color + ' border-emerald-600' : 'bg-white'}
+            transition-colors
+          `}
+                                            >
+                                                {formState.urgency === opt.value && (
+                                                    <span className="w-3 h-3 rounded-full bg-white border border-gray-200"></span>
+                                                )}
+                                            </span>
+                                            <span className="text-xs mt-1">{opt.label}</span>
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Description */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
                                     Description

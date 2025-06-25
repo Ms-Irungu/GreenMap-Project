@@ -1,5 +1,5 @@
 import React from 'react';
-import { Activity, Thermometer, MessageSquare } from 'lucide-react';
+import { Activity, Thermometer, MessageSquare, CloudHail } from 'lucide-react';
 import { StatisticsPanelProps } from '@/interfaces';
 
 
@@ -17,6 +17,8 @@ const StatisticsPanel: React.FC<StatisticsPanelProps> = ({
             </h2>
 
             <div className='space-y-4'>
+
+                        {/* Average NDVI */}    
                 <div className='p-3 bg-emerald-50 rounded-lg'>
                     <div className='flex items-start'>
                         <div className='bg-emerald-100 p-2 rounded-lg mr-3'>
@@ -40,6 +42,8 @@ const StatisticsPanel: React.FC<StatisticsPanelProps> = ({
                         </div>
                     </div>
                 </div>
+
+                            {/* Average LST */}
                 <div className='p-3 bg-orange-50 rounded-lg'>
                     <div className='flex items-start'>
                         <div className='bg-orange-100 p-2 rounded-lg mr-3'>
@@ -63,7 +67,33 @@ const StatisticsPanel: React.FC<StatisticsPanelProps> = ({
                     </div>
                 </div>
 
+                            {/* Average Rainfall */}
                 <div className='p-3 bg-blue-50 rounded-lg'>
+                    <div className='flex items-start'>
+                        <div className='bg-blue-300 p-2 rounded-lg mr-3'>
+                            <CloudHail className='h-5 w-5 text-white' />
+                        </div>
+                        <div>
+                            <p className='text-sm text-gray-600'>Average Rainfall</p>
+                            <p className={`text-xl font-semibold ${typeof meanNdvi === 'number' && meanNdvi >= 0
+                                ? 'text-blue-600'
+                                : 'text-red-600'
+                                } 
+                            `}>
+                                {isLoading
+                                    ? '...'
+                                    : (meanNdvi !== 'N/A' && meanNdvi !== undefined && meanNdvi !== null)
+                                        ? `${typeof meanNdvi === 'number'
+                                            ? (meanNdvi >= 0 ? '+' : '') + meanNdvi.toFixed(3)
+                                            : meanNdvi}`
+                                        : 'N/A'}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                                    
+                            {/* Community Reports */}
+                <div className='p-3 bg-indigo-50 rounded-lg'>
                     <div className='flex items-start'>
                         <div className='bg-blue-100 p-2 rounded-lg mr-3'>
                             <MessageSquare className='h-5 w-5 text-blue-600' />

@@ -1,10 +1,13 @@
 // Report Form Types
 export interface ReportFormState {
-  type: 'degradation' | 'potential' | 'existing';
+  type: 'illegal_tree_cutting' | 'encroachment' | 'pollution' |'potential' | 'existing';
   location: string;
   description: string;
   latitude: string;
   longitude: string;
+  spaceType?: string;
+  condition?: string;
+  urgency?: 'low' | 'moderate' | 'high' | 'critical';
 }
 
 // getInvolved Form Types
