@@ -79,3 +79,8 @@ export interface ChartSectionProps {
   selectedMonth: number;
   isLoading: boolean;
 }
+
+export interface MiniMapLayerControlsProps {
+  mapType: 'openStreetMap' | 'satellite';
+  onMapTypeChange: (type: 'openStreetMap' | 'satellite') => void;
+}
