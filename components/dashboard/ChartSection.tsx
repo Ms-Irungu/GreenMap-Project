@@ -48,7 +48,7 @@ const ChartSection: React.FC<ChartSectionProps> = ({
           <ResponsiveContainer width="100%" height={350}>
             <BarChart data={data}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis dataKey="ward" angle={-45} textAnchor="end" interval={0} height={80} />
+              <XAxis dataKey="ward" angle={-45} textAnchor="end" interval={3} height={80} />
               <YAxis label={{ value: 'LST (°C)', angle: -90, position: 'insideLeft' }} />
               <Tooltip />
               <Legend />

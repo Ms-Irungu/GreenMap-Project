@@ -189,7 +189,7 @@ const ReportForm: React.FC = () => {
                                 <label className="block text-lg font-medium text-gray-700 mb-1">
                                     Urgency / Severity
                                 </label>
-                                <div className="flex gap-40 mt-2">
+                                <div className="flex gap-10 mt-2">
                                     {[
                                         { value: 'low', label: 'Low', color: 'bg-green-400' },
                                         { value: 'moderate', label: 'Moderate', color: 'bg-yellow-400' },
