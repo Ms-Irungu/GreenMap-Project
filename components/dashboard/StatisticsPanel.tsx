@@ -1,6 +1,7 @@
 import React from 'react';
 import { Activity, Thermometer, MessageSquare, CloudHail } from 'lucide-react';
 import { StatisticsPanelProps } from '@/interfaces';
+import { useReportsCount } from '@/hooks/useReportsCount';
 
 
 const StatisticsPanel: React.FC<StatisticsPanelProps> = ({
@@ -10,6 +11,8 @@ const StatisticsPanel: React.FC<StatisticsPanelProps> = ({
     isLoading
 }) => {
 
+    // Fetch reports count
+    const { reportCount, isLoading: reportsLoading } = useReportsCount();
 
     return (
         <div className='bg-white rounded-lg shadow p-4'>
@@ -94,32 +97,19 @@ const StatisticsPanel: React.FC<StatisticsPanelProps> = ({
                 </div>
                                     
                             {/* Community Reports */}
-                <div className='p-3 bg-indigo-50 rounded-lg'>
+                <div className='p-3 bg-purple-50 rounded-lg'>
                     <div className='flex items-start'>
-                        <div className='bg-blue-100 p-2 rounded-lg mr-3'>
-                            <MessageSquare className='h-5 w-5 text-blue-600' />
+                        <div className='bg-purple-100 p-2 rounded-lg mr-3'>
+                            <MessageSquare className='h-5 w-5 text-purple-600' />
                         </div>
                         <div>
-                            <p className='text-sm text-gray-600'>Community Reports</p>
-                            {/* <p className='text-xl font-semibold text-blue-600'>
-                                {totalReports}
-                            </p> */}
-                            {/* <div className='flex gap-2 mt-1'>
-                                <span className='inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800'>
-                                    {statistics.reportCount.degraded} Degraded
-                                </span>
-                                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
-                                    {statistics.reportCount.potential} Potential
-                                </span>
-                                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-800">
-                                    {statistics.reportCount.encroached} Encroached
-                                </span>
-                            </div> */}
+                            <p className='text-sm text-gray-600'>Submitted Community Reports</p>
+                            <p className='text-xl font-semibold text-purple-600'>
+                                {reportsLoading ? '...' : reportCount}
+                            </p>
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div >
 

@@ -3,8 +3,16 @@ import Header from '../components/layout/Header'
 import { ArrowRight, Leaf, MapPin, BarChart3, FileEdit, Sun, Users } from 'lucide-react';
 import Link from 'next/link';
 import Footer from '@/components/layout/Footer';
+import { useReportsCount } from '@/hooks/useReportsCount';
+import { useWardData } from '@/hooks/useWardData';
 
 const Home = () => {
+
+  const { wardNames, isLoading } = useWardData();
+  const { reportCount, isLoading: reportsLoading } = useReportsCount();
+  
+  const wardCount = wardNames ? wardNames.length : 0;
+
   return (
     <div className='flex flex-col h-screen'>
       <Header />
@@ -142,12 +150,16 @@ const Home = () => {
           </div>
           
           <div className="card text-center">
-            <div className="text-3xl md:text-4xl font-bold text-orange-600 mb-2">0</div>
+            <div className="text-3xl md:text-4xl font-bold text-orange-600 mb-2">
+              {reportsLoading ? '...' : reportCount}
+            </div>
             <p className="text-sm md:text-base text-gray-600">Community Reports</p>
           </div>
           
           <div className="card text-center">
-            <div className="text-3xl md:text-4xl font-bold text-emerald-600 mb-2">0</div>
+            <div className="text-3xl md:text-4xl font-bold text-emerald-600 mb-2">
+              {isLoading ? '...' : wardCount}
+            </div>
             <p className="text-sm md:text-base text-gray-600">Wards Covered</p>
           </div>
           
