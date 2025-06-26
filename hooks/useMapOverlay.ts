@@ -10,6 +10,7 @@ export type OverlayResult = {
 const useMapOverlay = () => {
     const [ndvi, setNdvi] = useState<OverlayResult>({ mapId: null, downloadUrl: null });
     const [lst, setLst] = useState<OverlayResult>({ mapId: null, downloadUrl: null });
+    const [precipitation, setPrecipitation] = useState<OverlayResult>({ mapId: null, downloadUrl: null })
     const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -33,6 +34,10 @@ const useMapOverlay = () => {
                 mapId: res.data.lst?.map_id ?? null,
                 downloadUrl: res.data.lst?.download_url ?? null,
             });
+            setPrecipitation({
+                mapId: res.data.precipitation?.map_id ?? null,
+                downloadUrl: res.data.precipitation?.download_url ?? null,
+            });
             setDownloadUrl(res.data.ndvi?.download_url ?? null);
 
         } catch (err: unknown) {
@@ -48,6 +53,7 @@ const useMapOverlay = () => {
     return {
         ndvi,
         lst,
+        precipitation,
         downloadUrl,
         isLoading,
         error,

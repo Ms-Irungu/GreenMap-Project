@@ -10,7 +10,7 @@ const MapContainer = dynamic(() => import('@/components/map/MapContainer'), { ss
 
 const MapPage = () => {
     const [selected, setSelected] = useState({ month: new Date().getMonth(), year: new Date().getFullYear() });
-    const { isLoading, ndvi, lst, error, fetchOverlay } = useMapOverlay();
+    const { isLoading, ndvi, lst, precipitation, error, fetchOverlay } = useMapOverlay();
 
     const handleFetch = () => {
         fetchOverlay(selected.year, selected.month);
@@ -40,7 +40,7 @@ const MapPage = () => {
 
             <main className='flex-1 animate-fade-in bg-white p-4 sm:p-6 lg:p-8'>
                 <div className='h-[500px] bg-gray-200 shadow-md flex items-center justify-center relative z-0'>
-                    <MapContainer ndvi={ndvi} lst={lst} isLoading={isLoading} />
+                    <MapContainer ndvi={ndvi} lst={lst} precipitation={precipitation} isLoading={isLoading} />
                 </div>
                 {error && <div className="text-red-500 mt-2">{error}</div>}
             </main>

@@ -25,15 +25,17 @@ L.Marker.prototype.options.icon = DefaultIcon;
 interface MapContainerProps {
     ndvi: OverlayResult;
     lst: OverlayResult;
+    precipitation: OverlayResult; // Optional if you want to add precipitation later
     isLoading: boolean;
 }
 
-const MapContainer: React.FC<MapContainerProps> = ({ ndvi, lst, isLoading }) => {
+const MapContainer: React.FC<MapContainerProps> = ({ ndvi, lst, precipitation, isLoading }) => {
     const [position] = useState<MapPosition>(DEFAULT_MAP_POSITION);
     const [mapType, setMapType] = useState<'openStreetMap' | 'satellite'>('openStreetMap');
     const [layerVisibility, setLayerVisibility] = useState<LayerVisibility>({
         ndvi: true,
         uhi: false,
+        precipitation: false, 
     });
 
     const [controlsOpen, setControlsOpen] = useState(false);
@@ -41,12 +43,19 @@ const MapContainer: React.FC<MapContainerProps> = ({ ndvi, lst, isLoading }) => 
     // Debug logs
     console.log("NDVI mapId:", ndvi.mapId);
     console.log("LST mapId:", lst.mapId);
+    console.log("Precipitation mapId:", precipitation.mapId);
+
+
     if (ndvi.mapId) {
         console.log("NDVI Tile URL:", `https://earthengine.googleapis.com/v1alpha/${ndvi.mapId}/tiles/{z}/{x}/{y}`);
     }
     if (lst.mapId) {
         console.log("LST Tile URL:", `https://earthengine.googleapis.com/v1alpha/${lst.mapId}/tiles/{z}/{x}/{y}`);
     }
+    if (precipitation.mapId) {
+        console.log("NDVI Tile URL:", `https://earthengine.googleapis.com/v1alpha/${precipitation.mapId}/tiles/{z}/{x}/{y}`);
+    }
+
     console.log("Layer Visibility:", layerVisibility);
 
     const handleLayerToggle = (layer: keyof LayerVisibility) => {
@@ -91,6 +100,15 @@ const MapContainer: React.FC<MapContainerProps> = ({ ndvi, lst, isLoading }) => 
                     <TileLayer
                         url={`https://earthengine.googleapis.com/v1alpha/${lst.mapId}/tiles/{z}/{x}/{y}`}
                         attribution="LST Overlay"
+                        opacity={0.6}
+                    />
+                )}
+
+                {/* Dynamic Precipitation Layer */}
+                {layerVisibility.precipitation && precipitation.mapId && (
+                    <TileLayer
+                        url={`https://earthengine.googleapis.com/v1alpha/${precipitation.mapId}/tiles/{z}/{x}/{y}`}
+                        attribution="Precipitation Overlay"
                         opacity={0.6}
                     />
                 )}

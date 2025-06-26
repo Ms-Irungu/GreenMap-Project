@@ -21,16 +21,6 @@ export const MAP_TILE_LAYERS = {
   },
 };
 
-export const EE_TILE_LAYERS = {
-  ndvi: {
-    url: 'https://earthengine.googleapis.com/v1/projects/simple-map-project-367803/maps/5970dbf1d9dd2a4079043eaa17e2f1e6-46ed956fdbc8d867a108772ee20af49f/tiles/{z}/{x}/{y}',
-    attribution: 'NDVI Layer © Google Earth Engine'
-  },
-  uhi: {
-    url: 'https://earthengine.googleapis.com/v1/projects/simple-map-project-367803/maps/f3b36f79d6af19fc23401f67fc18d6b1-a20e5db8e297dde5982029f9f1f319d1/tiles/{z}/{x}/{y}',
-    attribution: 'LST Layer © Google Earth Engine'
-  }
-};
 
 export const months = [
   "Jan", "Feb", "Mar", "Apr", "May", "Jun",

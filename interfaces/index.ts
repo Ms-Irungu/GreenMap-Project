@@ -30,6 +30,7 @@ export interface MapPosition {
 export interface LayerVisibility {
   ndvi: boolean;
   uhi: boolean;
+  precipitation: boolean; 
 }
 
 export type LayerType = 'ndvi' | 'uhi' | 'reports';
