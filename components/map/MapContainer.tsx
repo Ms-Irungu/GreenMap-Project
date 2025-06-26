@@ -35,7 +35,7 @@ const MapContainer: React.FC<MapContainerProps> = ({ ndvi, lst, precipitation, i
     const [layerVisibility, setLayerVisibility] = useState<LayerVisibility>({
         ndvi: true,
         uhi: false,
-        precipitation: false, 
+        precipitation: false,
     });
 
     const [controlsOpen, setControlsOpen] = useState(false);
@@ -160,14 +160,7 @@ const MapContainer: React.FC<MapContainerProps> = ({ ndvi, lst, precipitation, i
 
                 {/* Legend based on active layers */}
                 {layerVisibility.ndvi && (
-                    <div className="
-                        absolute left-2 bottom-10
-                      bg-white p-2 rounded shadow z-[1000] text-xs
-                        w-[200px] max-w-xs
-                        sm:left-4 sm:bottom-4 sm:w-[220px] sm:max-w-sm
-                        md:left-4 md:bottom-4 md:w-[240px] md:max-w-xs
-                        overflow-x-auto
-                    ">
+                    <div className="absolute left-2 bottom-5 bg-white p-2 rounded shadow z-[1000] text-xs w-[200px] max-w-xs sm:left-4 sm:bottom-4 sm:w-[220px] sm:max-w-sm md:left-4 md:bottom-2 md:w-[240px] md:max-w-xs overflow-x-auto">
                         <strong>NDVI Legend</strong><br />
                         <span className="legend-square-red">■</span> Low (0.0 – 0.2): Bare/urban land <br />
                         <span className="legend-square-yellow">■</span> Moderate (0.2 – 0.4): Sparse vegetation <br />
@@ -176,20 +169,25 @@ const MapContainer: React.FC<MapContainerProps> = ({ ndvi, lst, precipitation, i
                 )}
 
                 {layerVisibility.uhi && (
-                    <div className="
-    absolute left-2 bottom-42
-    bg-white p-2 rounded shadow z-[1000] text-xs
-    w-[200px] max-w-xs
-    sm:left-4 sm:bottom-26 sm:w-[220px] sm:max-w-sm
-    md:left-4 md:bottom-26 md:w-[240px] md:max-w-xs
-    overflow-x-auto
-  ">
+                    <div className="absolute left-2 bottom-33 bg-white p-2 rounded shadow z-[1000] text-xs w-[200px] max-w-xs sm:left-4 sm:bottom-26 sm:w-[220px] sm:max-w-sm md:left-4 md:bottom-23 md:w-[240px] md:max-w-xs overflow-x-auto ">
                         <strong>LST (°C) Legend</strong><br />
                         <span className="legend-square-blue">■</span> Cool (25 – 30°C) <br />
                         <span className="legend-square-yellow">■</span> Warm (30 – 38°C) <br />
                         <span className="legend-square-red">■</span> Hot (38 – 45°C)
                     </div>
                 )}
+
+                {layerVisibility.precipitation && (
+                    <div className="absolute bottom-53 left-2 bg-white p-2 rounded shadow z-[1000] text-xs w-[200px] max-w-xs sm:left-4 sm:bottom-28 sm:w-[220px] sm:max-w-sm md:left-4 md:bottom-44 md:w-[240px] md:max-w-xs overflow-x-auto">
+                        <strong>Rainfall (mm)</strong><br />
+                        <span style={{ color: '#e0f3f8' }}>■</span> Very Low (0 – 60 mm)<br />
+                        <span style={{ color: '#abd9e9' }}>■</span> Low (60 – 120 mm)<br />
+                        <span style={{ color: '#74add1' }}>■</span> Moderate (120 – 180 mm)<br />
+                        <span style={{ color: '#4575b4' }}>■</span> High (180 – 240 mm)<br />
+                        <span style={{ color: '#313695' }}>■</span> Very High (240 – 300+ mm)
+                    </div>
+                )}
+
             </LeafletMap>
             {isLoading && (
                 <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-60 z-[2000]">
