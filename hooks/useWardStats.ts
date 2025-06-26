@@ -5,6 +5,7 @@ import { months } from "@/components/utils/constants";
 type StatsResponse = {
   ndvi: Record<string, number>;
   lst: Record<string, number>;
+  precipitation: Record<string, number>;
 };
 
 export const useWardStats = () => {

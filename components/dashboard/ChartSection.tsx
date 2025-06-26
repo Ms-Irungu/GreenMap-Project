@@ -11,7 +11,7 @@ import {
   ResponsiveContainer
 } from 'recharts';
 
-type ChartType = 'ndvi' | 'lst';
+type ChartType = 'ndvi' | 'lst' | 'precipitation';
 
 const ChartSection: React.FC<ChartSectionProps> = ({
   data,
@@ -43,7 +43,7 @@ const ChartSection: React.FC<ChartSectionProps> = ({
             </BarChart>
           </ResponsiveContainer>
         );
-        case 'lst':
+      case 'lst':
         return (
           <ResponsiveContainer width="100%" height={350}>
             <BarChart data={data}>
@@ -53,6 +53,19 @@ const ChartSection: React.FC<ChartSectionProps> = ({
               <Tooltip />
               <Legend />
               <Bar dataKey="lst" name="LST (°C)" fill="#f59e42" />
+            </BarChart>
+          </ResponsiveContainer>
+        );
+      case 'precipitation':
+        return (
+          <ResponsiveContainer width="100%" height={350}>
+            <BarChart data={data}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+              <XAxis dataKey="ward" angle={-45} textAnchor="end" interval={3} height={80} />
+              <YAxis label={{ value: 'LST (°C)', angle: -90, position: 'insideLeft' }} />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="precipitation" name="Precipitation (°C)" fill="#4575b4" />
             </BarChart>
           </ResponsiveContainer>
         );
@@ -68,15 +81,19 @@ const ChartSection: React.FC<ChartSectionProps> = ({
         <h2 className="text-lg font-medium text-gray-800">
           {activeChart === 'ndvi'
             ? `NDVI for All Wards (${new Date(0, selectedMonth).toLocaleString('default', { month: 'long' })} ${selectedYear})`
-            : `LST for All Wards (${new Date(0, selectedMonth).toLocaleString('default', { month: 'long' })} ${selectedYear})`}
+            : activeChart === 'lst'
+              ? `LST for All Wards (${new Date(0, selectedMonth).toLocaleString('default', { month: 'long' })} ${selectedYear})`
+              : activeChart === 'precipitation'
+                ? `Precipitation for All Wards (${new Date(0, selectedMonth).toLocaleString('default', { month: 'long' })} ${selectedYear})`
+                : 'Environmental Trends'}
         </h2>
 
         <div className="flex mt-2 space-x-2">
           <button
             onClick={() => setActiveChart('ndvi')}
             className={`px-3 py-1.5 text-sm font-medium rounded-md ${activeChart === 'ndvi'
-                ? 'bg-green-100 text-green-800'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              ? 'bg-green-100 text-green-800'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
           >
             Vegetation Trend
@@ -84,11 +101,20 @@ const ChartSection: React.FC<ChartSectionProps> = ({
           <button
             onClick={() => setActiveChart('lst')}
             className={`px-3 py-1.5 text-sm font-medium rounded-md ${activeChart === 'lst'
-                ? 'bg-orange-100 text-orange-800'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              ? 'bg-orange-100 text-orange-800'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
           >
             Urban Heat Trend
+          </button>
+          <button
+            onClick={() => setActiveChart('precipitation')}
+            className={`px-3 py-1.5 text-sm font-medium rounded-md ${activeChart === 'precipitation'
+              ? 'bg-blue-100 text-blue-800'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+          >
+            Rainfall Trend
           </button>
         </div>
       </div>

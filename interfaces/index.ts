@@ -57,6 +57,7 @@ export interface StatisticsPanelProps {
   ward: string;
   meanNdvi: number | string;
   meanLst: number | string;
+  meanPrecipitation: number | string;
   isLoading: boolean;
 }
 
@@ -75,7 +76,7 @@ export interface DashboardContainerProps {
 }
 
 export interface ChartSectionProps {
-  data: { ward: string; ndvi: number; lst: number }[];
+  data: { ward: string; ndvi: number; lst: number; precipitation: number }[];
   selectedYear: number;
   selectedMonth: number;
   isLoading: boolean;

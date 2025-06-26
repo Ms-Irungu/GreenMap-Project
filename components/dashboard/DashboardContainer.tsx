@@ -32,6 +32,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = ({ selectedDate })
   // Get mean NDVI and LST for the selected ward
   const meanNdvi = selectedWard && stats?.ndvi?.[selectedWard] !== undefined ? stats.ndvi[selectedWard] : 'N/A';
   const meanLst = selectedWard && stats?.lst?.[selectedWard] !== undefined ? stats.lst[selectedWard] : 'N/A';
+  const meanPrecipitation = selectedWard && stats?.precipitation?.[selectedWard] !== undefined ? stats.precipitation[selectedWard] : 'N/A';
 
   // For chart: show all wards' NDVI/LST for selected year/month
   const chartData =
@@ -40,6 +41,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = ({ selectedDate })
         ward,
         ndvi: stats.ndvi[ward],
         lst: stats.lst[ward],
+        precipitation: stats.precipitation[ward],
       }))
       : [];
 
@@ -59,6 +61,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = ({ selectedDate })
             ward={selectedWard}
             meanNdvi={meanNdvi}
             meanLst={meanLst}
+            meanPrecipitation={meanPrecipitation}
             isLoading={statsLoading}
           />
         </div>

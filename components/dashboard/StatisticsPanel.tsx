@@ -6,6 +6,7 @@ import { StatisticsPanelProps } from '@/interfaces';
 const StatisticsPanel: React.FC<StatisticsPanelProps> = ({
     meanNdvi,
     meanLst,
+    meanPrecipitation,
     isLoading
 }) => {
 
@@ -75,17 +76,17 @@ const StatisticsPanel: React.FC<StatisticsPanelProps> = ({
                         </div>
                         <div>
                             <p className='text-sm text-gray-600'>Average Rainfall</p>
-                            <p className={`text-xl font-semibold ${typeof meanNdvi === 'number' && meanNdvi >= 0
+                            <p className={`text-xl font-semibold ${typeof meanPrecipitation === 'number' && meanPrecipitation >= 0
                                 ? 'text-blue-600'
                                 : 'text-red-600'
                                 } 
                             `}>
                                 {isLoading
                                     ? '...'
-                                    : (meanNdvi !== 'N/A' && meanNdvi !== undefined && meanNdvi !== null)
-                                        ? `${typeof meanNdvi === 'number'
-                                            ? (meanNdvi >= 0 ? '+' : '') + meanNdvi.toFixed(3)
-                                            : meanNdvi}`
+                                    : (meanPrecipitation !== 'N/A' && meanPrecipitation !== undefined && meanPrecipitation !== null)
+                                        ? `${typeof meanPrecipitation === 'number'
+                                            ? meanPrecipitation.toFixed(3) + ' mm'
+                                            : meanPrecipitation}`
                                         : 'N/A'}
                             </p>
                         </div>
