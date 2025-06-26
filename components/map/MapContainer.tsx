@@ -180,11 +180,11 @@ const MapContainer: React.FC<MapContainerProps> = ({ ndvi, lst, precipitation, i
                 {layerVisibility.precipitation && (
                     <div className="absolute bottom-53 left-2 bg-white p-2 rounded shadow z-[1000] text-xs w-[200px] max-w-xs sm:left-4 sm:bottom-28 sm:w-[220px] sm:max-w-sm md:left-4 md:bottom-44 md:w-[240px] md:max-w-xs overflow-x-auto">
                         <strong>Rainfall (mm)</strong><br />
-                        <span style={{ color: '#e0f3f8' }}>■</span> Very Low (0 – 60 mm)<br />
-                        <span style={{ color: '#abd9e9' }}>■</span> Low (60 – 120 mm)<br />
-                        <span style={{ color: '#74add1' }}>■</span> Moderate (120 – 180 mm)<br />
-                        <span style={{ color: '#4575b4' }}>■</span> High (180 – 240 mm)<br />
-                        <span style={{ color: '#313695' }}>■</span> Very High (240 – 300+ mm)
+                        <span className="legend-very-light-blue">■</span> Very Low (0 – 60 mm)<br />
+                        <span className="legend-light-blue">■</span> Low (60 – 120 mm)<br />
+                        <span className="legend-medium-blue">■</span> Moderate (120 – 180 mm)<br />
+                        <span className="legend-dark-blue">■</span> High (180 – 240 mm)<br />
+                        <span className="legend-navy-blue">■</span> Very High (240 – 300+ mm)
                     </div>
                 )}
 

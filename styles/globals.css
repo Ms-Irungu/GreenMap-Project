@@ -41,3 +41,19 @@
 .legend-square-yellow {
   color: yellow;
 }
+
+.legend-very-light-blue {
+  color: #e0f3f8;
+}
+.legend-light-blue {
+  color: #abd9e9;
+}
+.legend-medium-blue {
+  color: #74add1;
+}
+.legend-dark-blue {
+  color: #4575b4;
+}
+.legend-navy-blue {
+  color: #4575b4;
+}
