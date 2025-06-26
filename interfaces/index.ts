@@ -76,7 +76,7 @@ export interface DashboardContainerProps {
 }
 
 export interface ChartSectionProps {
-  data: { ward: string; ndvi: number; lst: number; precipitation: number }[];
+  data: { ward: string; ndvi: number; lst: number ; precipitation: number }[];
   selectedYear: number;
   selectedMonth: number;
   isLoading: boolean;
