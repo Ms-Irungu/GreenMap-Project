@@ -50,7 +50,7 @@ const Home = () => {
             </div>
             <h3 className="text-xl font-semibold mb-2">Vegetation Monitoring</h3>
             <p className="text-gray-600">
-              Using Sentinel-2 satellite data and NDVI analysis to track urban vegetation health and identify areas of green cover reduction.
+              We use Sentinel-2 satellite data and Normalized Difference Vegetation Index (NDVI) analysis to monitor vegetation health and detect areas where green cover is declining across the city.
             </p>
           </div>
           
@@ -60,7 +60,7 @@ const Home = () => {
             </div>
             <h3 className="text-xl font-semibold mb-2">Urban Heat Mapping</h3>
             <p className="text-gray-600">
-              Utilizing MODIS Land Surface Temperature data to visualize urban heat islands and their correlation with green cover.
+              Urban Heat Islands (UHI) are areas within the city that are significantly warmer than their surroundings, mainly due to dense buildings, roads, and limited vegetation. Using MODIS Land Surface Temperature data, we map these hotspots and reveal their connection to reduced green cover.
             </p>
           </div>
           
